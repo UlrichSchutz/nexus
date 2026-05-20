@@ -6,6 +6,7 @@ import { Link } from "@/i18n/routing";
 import type { MarketSnapshot } from "@/lib/exchange";
 import { siteContact } from "@/lib/site-config";
 import { MarketGrid, MarketTicker } from "@/components/market-ticker";
+import { PortalAccount } from "@/components/portal-account";
 
 type AccountData = {
   btcAmount: number;
@@ -55,6 +56,7 @@ export function PortalDashboard({
   const [bankForm, setBankForm] = useState({ recipientName: "", iban: "", bic: "" });
   const [withdrawEur, setWithdrawEur] = useState("");
   const [withdrawNote, setWithdrawNote] = useState("");
+  const [portalTab, setPortalTab] = useState<"overview" | "account">("overview");
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
 
@@ -190,6 +192,35 @@ export function PortalDashboard({
           </div>
         </div>
 
+        <div className="mb-8 flex gap-2 border-b border-brand-border">
+          <button
+            type="button"
+            onClick={() => setPortalTab("overview")}
+            className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
+              portalTab === "overview"
+                ? "border-brand-teal text-brand-teal"
+                : "border-transparent text-brand-muted hover:text-brand-ink"
+            }`}
+          >
+            {labels.tabOverview}
+          </button>
+          <button
+            type="button"
+            onClick={() => setPortalTab("account")}
+            className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
+              portalTab === "account"
+                ? "border-brand-teal text-brand-teal"
+                : "border-transparent text-brand-muted hover:text-brand-ink"
+            }`}
+          >
+            {labels.tabAccount}
+          </button>
+        </div>
+
+        {portalTab === "account" ? (
+          <PortalAccount labels={labels} locale={locale} />
+        ) : (
+          <>
         {msg && (
           <p className="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-50 p-4 text-sm text-emerald-700">{msg}</p>
         )}
@@ -391,6 +422,8 @@ export function PortalDashboard({
               </div>
             </div>
           </div>
+        )}
+          </>
         )}
       </div>
     </section>

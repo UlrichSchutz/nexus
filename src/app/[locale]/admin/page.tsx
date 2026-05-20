@@ -6,6 +6,16 @@ import { AdminBackoffice } from "@/components/admin-backoffice";
 
 type Props = { params: Promise<{ locale: string }> };
 
+const ADMIN_KEYS = [
+  "title", "clients", "createClient", "btcBalance", "eurBalance", "systemNotice",
+  "save", "note", "email", "password", "firstName", "lastName", "phone", "actions",
+  "withdrawals", "noWithdrawals", "approve", "reject", "complete", "recipientName", "clientNote",
+  "totalClients", "activeClients", "pendingWithdrawals", "profileSection", "passwordSection",
+  "passwordStored", "newPasswordPlaceholder", "resetPassword", "saveProfile", "saveBalance",
+  "profileSaved", "balanceSaved", "passwordReset", "passwordCopyHint", "passwordTooShort",
+  "saveError", "dismiss", "show", "hide", "memberSince", "active",
+] as const;
+
 export default async function AdminPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -17,33 +27,10 @@ export default async function AdminPage({ params }: Props) {
     redirect(`/${locale}/portal/login?callbackUrl=/${locale}/admin`);
   }
 
-  return (
-    <AdminBackoffice
-      locale={locale}
-      labels={{
-        title: t("title"),
-        clients: t("clients"),
-        createClient: t("createClient"),
-        btcBalance: t("btcBalance"),
-        eurBalance: t("eurBalance"),
-        systemNotice: t("systemNotice"),
-        save: t("save"),
-        note: t("note"),
-        email: t("email"),
-        password: t("password"),
-        firstName: t("firstName"),
-        lastName: t("lastName"),
-        phone: t("phone"),
-        actions: t("actions"),
-        clientPortal: nav("clientPortal"),
-        withdrawals: t("withdrawals"),
-        noWithdrawals: t("noWithdrawals"),
-        approve: t("approve"),
-        reject: t("reject"),
-        complete: t("complete"),
-        recipientName: t("recipientName"),
-        clientNote: t("clientNote"),
-      }}
-    />
-  );
+  const labels = {
+    ...Object.fromEntries(ADMIN_KEYS.map((key) => [key, t(key)])),
+    clientPortal: nav("clientPortal"),
+  } as Record<string, string>;
+
+  return <AdminBackoffice locale={locale} labels={labels} />;
 }

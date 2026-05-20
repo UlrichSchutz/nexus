@@ -18,6 +18,11 @@ const PORTAL_KEYS = [
   "updated", "marketsLoading", "forex", "bankDesc", "withdrawDesc", "maxWithdraw",
   "supportTitle", "supportDesc", "phone", "hours", "supportHours", "contactForm",
   "securityTips", "tip1", "tip2", "tip3",
+  "tabOverview", "tabAccount", "profileTitle", "profileDesc", "profileSaved", "profileError",
+  "saveProfile", "emailReadonly", "passwordTitle", "passwordDesc", "currentPassword",
+  "newPassword", "confirmPassword", "changePassword", "passwordChanged", "passwordWrong",
+  "passwordMismatch", "passwordTooShort", "passwordSame", "passwordError", "show", "hide",
+  "email", "firstName", "lastName",
 ] as const;
 
 export default async function PortalPage({ params }: Props) {

@@ -1,4 +1,5 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { PageHero } from "@/components/page-hero";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -27,15 +28,17 @@ export default async function ServicesPage({ params }: Props) {
   const items = locale === "de" ? servicesDe : servicesEn;
 
   return (
-    <section className="py-20">
+    <section className="page-shell">
       <div className="container mx-auto px-4">
-        <h1 className="mb-4 text-center font-tech text-4xl font-bold text-white">{t("title")}</h1>
-        <p className="mx-auto mb-16 max-w-2xl text-center text-gray-400">{t("subtitle")}</p>
+        <PageHero title={t("title")} subtitle={t("subtitle")} />
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {items.map(([title, desc]) => (
-            <div key={title} className="glass-panel neon-border rounded-2xl p-8">
-              <h3 className="mb-3 font-tech text-lg font-bold text-white">{title}</h3>
-              <p className="text-sm text-gray-400">{desc}</p>
+            <div key={title} className="glass-panel p-8 transition hover:shadow-lift">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-brand-tealLight font-serif text-lg font-bold text-brand-teal">
+                ✓
+              </div>
+              <h3 className="mb-3 font-serif text-lg font-bold text-brand-ink">{title}</h3>
+              <p className="text-sm leading-relaxed text-brand-muted">{desc}</p>
             </div>
           ))}
         </div>

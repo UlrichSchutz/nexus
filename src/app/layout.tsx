@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { DM_Serif_Display, Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -7,10 +7,10 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "700"],
+  variable: "--font-dm-serif",
 });
 
 export const metadata: Metadata = {
@@ -23,9 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className="scroll-smooth">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
-        {children}
-      </body>
+      <body className={`${inter.variable} ${dmSerif.variable} font-sans`}>{children}</body>
     </html>
   );
 }

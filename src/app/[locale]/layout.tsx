@@ -25,7 +25,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       <Providers>
-        <div className="min-h-screen bg-cyber-dark bg-tech-grid text-slate-200 antialiased selection:bg-cyber-cyan selection:text-cyber-dark">
+        <div className="min-h-screen bg-brand-canvas text-brand-ink antialiased selection:bg-brand-tealLight selection:text-brand-tealDark">
           <SiteHeader />
           <main>{children}</main>
           <SiteFooter />

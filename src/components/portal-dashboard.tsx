@@ -175,20 +175,20 @@ export function PortalDashboard({
         {/* Header */}
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="font-tech text-xs uppercase tracking-[0.2em] text-cyber-cyan">{labels.secureArea}</p>
-            <h1 className="mt-1 font-tech text-3xl font-bold text-white md:text-4xl">{labels.title}</h1>
-            <p className="mt-2 text-gray-400">
-              {labels.welcome}, <span className="text-white">{userName}</span>
+            <p className="font-display text-xs uppercase tracking-[0.2em] text-brand-teal">{labels.secureArea}</p>
+            <h1 className="mt-1 font-display text-3xl font-bold text-brand-ink md:text-4xl">{labels.title}</h1>
+            <p className="mt-2 text-brand-muted">
+              {labels.welcome}, <span className="text-brand-ink">{userName}</span>
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/" className="rounded border border-gray-700 px-4 py-2 text-sm text-gray-400 hover:text-white">
+            <Link href="/" className="rounded border border-brand-border px-4 py-2 text-sm text-brand-muted hover:text-brand-teal">
               {labels.backHome}
             </Link>
             <button
               type="button"
               onClick={() => signOut({ callbackUrl: `/${locale}` })}
-              className="rounded border border-gray-600 px-4 py-2 text-sm text-gray-400 hover:text-white"
+              className="rounded border border-brand-border px-4 py-2 text-sm text-brand-muted hover:text-brand-teal"
             >
               {labels.logout}
             </button>
@@ -196,81 +196,81 @@ export function PortalDashboard({
         </div>
 
         {msg && (
-          <p className="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-400">{msg}</p>
+          <p className="mb-4 rounded-lg border border-emerald-500/30 bg-emerald-50 p-4 text-sm text-emerald-700">{msg}</p>
         )}
         {err && (
-          <p className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400">{err}</p>
+          <p className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-600">{err}</p>
         )}
 
         {loading ? (
           <div className="flex min-h-[40vh] items-center justify-center">
-            <p className="font-tech text-cyber-cyan animate-pulse">{labels.loading}</p>
+            <p className="font-display text-brand-teal animate-pulse">{labels.loading}</p>
           </div>
         ) : (
           <div className="space-y-10">
             <MarketTicker markets={markets} labels={labels} locale={locale} />
 
             {account?.systemNotice && (
-              <div className="rounded-2xl border border-amber-500/40 bg-gradient-to-r from-amber-500/10 to-transparent p-6 md:p-8">
-                <p className="mb-2 font-tech text-xs uppercase tracking-widest text-amber-400">{labels.systemNotice}</p>
-                <p className="whitespace-pre-wrap text-base leading-relaxed text-amber-50">{account.systemNotice}</p>
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 md:p-8">
+                <p className="mb-2 font-display text-xs uppercase tracking-widest text-amber-800">{labels.systemNotice}</p>
+                <p className="whitespace-pre-wrap text-base leading-relaxed text-amber-900">{account.systemNotice}</p>
               </div>
             )}
 
             {/* Portfolio hero */}
             <div className="grid gap-6 lg:grid-cols-12">
-              <div className="glass-panel relative overflow-hidden rounded-2xl border border-cyber-cyan/40 p-8 md:p-10 lg:col-span-8">
-                <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-cyber-cyan/10 blur-3xl" />
-                <p className="mb-2 font-tech text-xs uppercase tracking-widest text-cyber-cyan">{labels.eurBalance}</p>
-                <p className="font-tech text-5xl font-bold text-white md:text-6xl lg:text-7xl">
+              <div className="glass-panel relative overflow-hidden rounded-2xl border border-brand-teal/40 p-8 md:p-10 lg:col-span-8">
+                <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-teal/10 blur-3xl" />
+                <p className="mb-2 font-display text-xs uppercase tracking-widest text-brand-teal">{labels.eurBalance}</p>
+                <p className="font-display text-5xl font-bold text-brand-tealDark md:text-6xl lg:text-7xl">
                   {formatEur(displayEur, locale, 2)}
                 </p>
                 {account?.eurSource === "market" && (
-                  <p className="mt-3 text-sm text-cyber-cyan/80">{labels.eurFromMarket}</p>
+                  <p className="mt-3 text-sm text-brand-teal/80">{labels.eurFromMarket}</p>
                 )}
                 {account?.eurSource === "admin" && account.eurAmount > 0 && (
-                  <p className="mt-3 text-sm text-gray-500">{labels.eurFromAdmin}</p>
+                  <p className="mt-3 text-sm text-brand-light">{labels.eurFromAdmin}</p>
                 )}
                 {account?.updatedAt && (
-                  <p className="mt-4 text-xs text-gray-500">
+                  <p className="mt-4 text-xs text-brand-light">
                     {labels.lastUpdated}: {new Date(account.updatedAt).toLocaleString(locale)}
                   </p>
                 )}
                 {btc > 0 && account?.btcPriceEur && (
-                  <p className="mt-4 rounded-lg border border-cyber-border/50 bg-cyber-dark/40 px-4 py-3 text-sm text-gray-400">
+                  <p className="mt-4 rounded-lg border border-brand-border/50 bg-brand-canvas/40 px-4 py-3 text-sm text-brand-muted">
                     {labels.valuationBreakdown}: {btc.toFixed(8)} BTC × {formatEur(account.btcPriceEur, locale)} ={" "}
-                    <span className="text-white">{formatEur(account.liveEurEstimate, locale)}</span>
+                    <span className="text-brand-ink">{formatEur(account.liveEurEstimate, locale)}</span>
                   </p>
                 )}
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
                 <div className="glass-panel rounded-2xl p-6">
-                  <p className="font-tech text-xs uppercase text-gray-500">{labels.btcBalance}</p>
-                  <p className="mt-2 font-tech text-3xl font-bold text-white">
-                    {btc.toFixed(8)} <span className="text-lg text-cyber-cyan">BTC</span>
+                  <p className="font-display text-xs uppercase text-brand-light">{labels.btcBalance}</p>
+                  <p className="mt-2 font-display text-3xl font-bold text-brand-ink">
+                    {btc.toFixed(8)} <span className="text-lg text-brand-teal">BTC</span>
                   </p>
                   {account?.btcChange24h != null && (
-                    <p className={`mt-2 text-sm ${account.btcChange24h >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+                    <p className={`mt-2 text-sm ${account.btcChange24h >= 0 ? "text-emerald-700" : "text-red-600"}`}>
                       24h: {account.btcChange24h >= 0 ? "+" : ""}
                       {account.btcChange24h.toFixed(2)}%
                     </p>
                   )}
                 </div>
                 <div className="glass-panel rounded-2xl p-6">
-                  <p className="font-tech text-xs uppercase text-gray-500">{labels.quickStats}</p>
-                  <ul className="mt-3 space-y-2 text-sm text-gray-400">
+                  <p className="font-display text-xs uppercase text-brand-light">{labels.quickStats}</p>
+                  <ul className="mt-3 space-y-2 text-sm text-brand-muted">
                     <li className="flex justify-between">
                       <span>{labels.openRequests}</span>
-                      <span className="text-white">{pendingWithdrawals}</span>
+                      <span className="text-brand-ink">{pendingWithdrawals}</span>
                     </li>
                     <li className="flex justify-between">
                       <span>{labels.bankLinked}</span>
-                      <span className={bank ? "text-emerald-400" : "text-amber-400"}>{bank ? "✓" : "—"}</span>
+                      <span className={bank ? "text-emerald-700" : "text-amber-700"}>{bank ? "✓" : "—"}</span>
                     </li>
                     <li className="flex justify-between">
                       <span>BTC/EUR</span>
-                      <span className="text-white">{account?.btcPriceEur ? formatEur(account.btcPriceEur, locale, 0) : "—"}</span>
+                      <span className="text-brand-ink">{account?.btcPriceEur ? formatEur(account.btcPriceEur, locale, 0) : "—"}</span>
                     </li>
                   </ul>
                 </div>
@@ -279,7 +279,7 @@ export function PortalDashboard({
 
             {/* Live markets */}
             <div>
-              <h2 className="mb-6 font-tech text-2xl font-bold text-white">{labels.marketOverview}</h2>
+              <h2 className="mb-6 font-display text-2xl font-bold text-brand-ink">{labels.marketOverview}</h2>
               <MarketGrid markets={markets} labels={labels} locale={locale} />
             </div>
 
@@ -287,8 +287,8 @@ export function PortalDashboard({
               {/* Bank + withdrawal */}
               <div className="space-y-8 xl:col-span-2">
                 <div className="glass-panel rounded-2xl p-6 md:p-8">
-                  <h2 className="mb-2 font-tech text-xl font-bold text-white">{labels.bankTitle}</h2>
-                  <p className="mb-6 text-sm text-gray-500">{labels.bankDesc}</p>
+                  <h2 className="mb-2 font-display text-xl font-bold text-brand-ink">{labels.bankTitle}</h2>
+                  <p className="mb-6 text-sm text-brand-light">{labels.bankDesc}</p>
                   <form onSubmit={saveBank} className="grid gap-4 md:grid-cols-2">
                     <input className="tech-input md:col-span-2" placeholder={labels.recipientName} required value={bankForm.recipientName} onChange={(e) => setBankForm({ ...bankForm, recipientName: e.target.value })} />
                     <input className="tech-input" placeholder={labels.iban} required value={bankForm.iban} onChange={(e) => setBankForm({ ...bankForm, iban: e.target.value })} />
@@ -298,32 +298,32 @@ export function PortalDashboard({
                 </div>
 
                 <div className="glass-panel rounded-2xl p-6 md:p-8">
-                  <h2 className="mb-2 font-tech text-xl font-bold text-white">{labels.withdrawTitle}</h2>
-                  <p className="mb-6 text-sm text-gray-500">{labels.withdrawDesc}</p>
+                  <h2 className="mb-2 font-display text-xl font-bold text-brand-ink">{labels.withdrawTitle}</h2>
+                  <p className="mb-6 text-sm text-brand-light">{labels.withdrawDesc}</p>
                   <form onSubmit={submitWithdrawal} className="space-y-4">
                     <div className="grid gap-4 md:grid-cols-2">
                       <input className="tech-input" type="number" step="0.00000001" min="0" max={btc} placeholder={labels.withdrawAmount} required value={withdrawBtc} onChange={(e) => setWithdrawBtc(e.target.value)} />
-                      <p className="flex items-center text-xs text-gray-500 md:justify-end">
+                      <p className="flex items-center text-xs text-brand-light md:justify-end">
                         {labels.maxWithdraw}: {btc.toFixed(8)} BTC
                       </p>
                     </div>
                     <textarea className="tech-input resize-y" rows={3} placeholder={labels.withdrawNote} value={withdrawNote} onChange={(e) => setWithdrawNote(e.target.value)} />
                     <button type="submit" className="btn-cyber" disabled={!bank}>{labels.withdrawSubmit}</button>
-                    {!bank && <p className="text-xs text-amber-400">{labels.bankRequired}</p>}
+                    {!bank && <p className="text-xs text-amber-700">{labels.bankRequired}</p>}
                   </form>
                 </div>
 
                 {withdrawals.length > 0 && (
                   <div className="glass-panel overflow-hidden rounded-2xl">
-                    <h2 className="border-b border-cyber-border p-5 font-tech text-lg font-bold text-white">{labels.withdrawHistory}</h2>
-                    <ul className="divide-y divide-cyber-border/50">
+                    <h2 className="border-b border-brand-border p-5 font-display text-lg font-bold text-brand-ink">{labels.withdrawHistory}</h2>
+                    <ul className="divide-y divide-brand-border/50">
                       {withdrawals.map((w) => (
                         <li key={w.id} className="flex flex-wrap items-center justify-between gap-3 p-5">
                           <div>
-                            <p className="font-tech text-white">{Number(w.btcAmount).toFixed(8)} BTC</p>
-                            <p className="text-xs text-gray-500">{new Date(w.createdAt).toLocaleString(locale)}</p>
+                            <p className="font-display text-brand-ink">{Number(w.btcAmount).toFixed(8)} BTC</p>
+                            <p className="text-xs text-brand-light">{new Date(w.createdAt).toLocaleString(locale)}</p>
                           </div>
-                          <span className={`rounded px-3 py-1 text-xs font-tech uppercase ${w.status === "PENDING" ? "bg-amber-500/20 text-amber-400" : w.status === "REJECTED" ? "bg-red-500/20 text-red-400" : "bg-emerald-500/20 text-emerald-400"}`}>
+                          <span className={`rounded px-3 py-1 text-xs font-medium uppercase ${w.status === "PENDING" ? "bg-amber-100 text-amber-800" : w.status === "REJECTED" ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-800"}`}>
                             {statusLabel(w.status)}
                           </span>
                         </li>
@@ -335,27 +335,27 @@ export function PortalDashboard({
 
               {/* Support sidebar */}
               <div className="space-y-6">
-                <div className="glass-panel rounded-2xl border border-cyber-cyan/20 p-6 md:p-8">
-                  <h2 className="mb-4 font-tech text-xl font-bold text-white">{labels.supportTitle}</h2>
-                  <p className="mb-6 text-sm leading-relaxed text-gray-400">{labels.supportDesc}</p>
+                <div className="glass-panel rounded-2xl border border-brand-teal/20 p-6 md:p-8">
+                  <h2 className="mb-4 font-display text-xl font-bold text-brand-ink">{labels.supportTitle}</h2>
+                  <p className="mb-6 text-sm leading-relaxed text-brand-muted">{labels.supportDesc}</p>
                   <div className="space-y-4 text-sm">
-                    <a href={`mailto:${SUPPORT.email}`} className="flex items-center gap-3 rounded-lg border border-cyber-border bg-cyber-dark/50 p-4 transition hover:border-cyber-cyan/50">
+                    <a href={`mailto:${SUPPORT.email}`} className="flex items-center gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-4 transition hover:border-brand-teal/50">
                       <span className="text-xl">✉</span>
                       <div>
-                        <p className="text-xs text-gray-500">E-Mail</p>
-                        <p className="text-cyber-cyan">{SUPPORT.email}</p>
+                        <p className="text-xs text-brand-light">E-Mail</p>
+                        <p className="text-brand-teal">{SUPPORT.email}</p>
                       </div>
                     </a>
-                    <a href={`tel:${SUPPORT.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 rounded-lg border border-cyber-border bg-cyber-dark/50 p-4 transition hover:border-cyber-cyan/50">
+                    <a href={`tel:${SUPPORT.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-4 transition hover:border-brand-teal/50">
                       <span className="text-xl">📞</span>
                       <div>
-                        <p className="text-xs text-gray-500">{labels.phone}</p>
-                        <p className="text-white">{SUPPORT.phone}</p>
+                        <p className="text-xs text-brand-light">{labels.phone}</p>
+                        <p className="text-brand-ink">{SUPPORT.phone}</p>
                       </div>
                     </a>
-                    <div className="rounded-lg border border-cyber-border bg-cyber-dark/50 p-4">
-                      <p className="text-xs text-gray-500">{labels.hours}</p>
-                      <p className="mt-1 text-gray-300">{labels.supportHours}</p>
+                    <div className="rounded-lg border border-brand-border bg-brand-canvas/50 p-4">
+                      <p className="text-xs text-brand-light">{labels.hours}</p>
+                      <p className="mt-1 text-brand-muted">{labels.supportHours}</p>
                     </div>
                   </div>
                   <Link href="/contact" className="btn-cyber mt-6 block w-full text-center">
@@ -364,8 +364,8 @@ export function PortalDashboard({
                 </div>
 
                 <div className="glass-panel rounded-2xl p-6">
-                  <h3 className="mb-3 font-tech text-sm font-bold uppercase text-gray-400">{labels.securityTips}</h3>
-                  <ul className="space-y-2 text-xs leading-relaxed text-gray-500">
+                  <h3 className="mb-3 font-display text-sm font-bold uppercase text-brand-muted">{labels.securityTips}</h3>
+                  <ul className="space-y-2 text-xs leading-relaxed text-brand-light">
                     <li>• {labels.tip1}</li>
                     <li>• {labels.tip2}</li>
                     <li>• {labels.tip3}</li>

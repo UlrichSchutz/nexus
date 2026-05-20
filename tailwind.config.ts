@@ -6,38 +6,36 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        tech: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        serif: ["var(--font-dm-serif)", "Georgia", "serif"],
+        display: ["var(--font-dm-serif)", "Georgia", "serif"],
       },
       colors: {
-        cyber: {
-          dark: "#050B14",
-          panel: "#0A1120",
-          border: "#1E2D4A",
-          cyan: "#00E5FF",
-          blue: "#2962FF",
-        },
-        nexus: {
-          primary: "#0b2b44",
-          secondary: "#123e63",
-          accent: "#2563eb",
+        brand: {
+          ink: "#0f172a",
+          muted: "#475569",
+          light: "#94a3b8",
+          surface: "#ffffff",
+          canvas: "#f0fdfa",
+          canvasAlt: "#f8fafc",
+          teal: "#0d9488",
+          tealDark: "#0f766e",
+          tealLight: "#ccfbf1",
+          tealSoft: "#e6fffa",
+          border: "#e2e8f0",
         },
       },
-      backgroundImage: {
-        "hero-gradient":
-          "linear-gradient(to bottom, rgba(5, 11, 20, 0.88), rgba(5, 11, 20, 0.98))",
-        "tech-grid":
-          "linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px)",
-      },
-      backgroundSize: {
-        "tech-grid": "30px 30px",
+      boxShadow: {
+        card: "0 4px 24px rgba(15, 118, 110, 0.08)",
+        soft: "0 2px 12px rgba(15, 23, 42, 0.06)",
+        lift: "0 8px 32px rgba(13, 148, 136, 0.12)",
       },
       animation: {
-        scan: "scan 4s linear infinite",
+        ticker: "ticker 45s linear infinite",
       },
       keyframes: {
-        scan: {
-          "0%": { top: "-20%" },
-          "100%": { top: "120%" },
+        ticker: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
     },

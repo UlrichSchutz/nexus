@@ -21,47 +21,51 @@ export function SiteHeader() {
     setOpen(false);
   }
 
+  const linkClass =
+    "text-brand-muted transition hover:text-brand-teal";
+
   return (
-    <nav className="glass-panel sticky top-0 z-50 border-b border-cyber-border/50">
+    <nav className="sticky top-0 z-50 border-b border-brand-border bg-white/95 shadow-soft backdrop-blur-md">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-cyber-cyan/40 bg-cyber-cyan/10 font-tech text-lg font-bold text-cyber-cyan shadow-[0_0_8px_rgba(0,229,255,0.4)]">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-teal font-display text-lg font-bold text-white shadow-soft">
             NT
           </div>
-          <span className="hidden font-tech text-xl font-bold uppercase tracking-widest text-white sm:block">
-            Nexus <span className="text-cyber-cyan">Tech</span>
+          <span className="hidden font-serif text-xl font-bold text-brand-ink sm:block">
+            Nexus <span className="text-brand-teal">Tech</span>
           </span>
         </Link>
 
-        <div className="hidden items-center gap-6 font-tech text-sm text-gray-300 md:flex">
-          <Link href="/#about" className="transition hover:text-cyber-cyan">
+        <div className="hidden items-center gap-6 text-sm font-medium md:flex">
+          <Link href="/#about" className={linkClass}>
             {t("procedure")}
           </Link>
-          <Link href="/about" className="transition hover:text-cyber-cyan">
+          <Link href="/about" className={linkClass}>
             {t("about")}
           </Link>
-          <Link href="/services" className="transition hover:text-cyber-cyan">
+          <Link href="/services" className={linkClass}>
             {t("services")}
           </Link>
-          <Link href="/contact" className="transition hover:text-cyber-cyan">
+          <Link href="/contact" className={linkClass}>
             {t("contact")}
           </Link>
-          <Link
-            href="/#form"
-            className="rounded border border-cyber-cyan bg-cyber-cyan/10 px-5 py-2 uppercase text-cyber-cyan shadow-[0_0_10px_rgba(0,229,255,0.2)] transition hover:bg-cyber-cyan hover:text-cyber-dark"
-          >
+          <Link href="/#form" className="btn-cyber !px-5 !py-2 !text-xs">
             {t("freeConsultation")}
           </Link>
-          <Link href="/portal" className="transition hover:text-cyber-cyan">
+          <Link href="/portal" className={linkClass}>
             {t("clientPortal")}
           </Link>
-          <div className="flex gap-1 rounded border border-gray-700 bg-cyber-dark px-1 py-1 text-xs">
+          <div className="flex gap-1 rounded-lg border border-brand-border bg-brand-canvasAlt p-1 text-xs">
             {locales.map((l) => (
               <button
                 key={l.code}
                 type="button"
                 onClick={() => switchLocale(l.code)}
-                className={`rounded px-2 py-1 ${locale === l.code ? "bg-cyber-cyan/20 text-cyber-cyan" : "text-gray-400 hover:text-white"}`}
+                className={`rounded-md px-2 py-1 transition ${
+                  locale === l.code
+                    ? "bg-brand-teal text-white"
+                    : "text-brand-muted hover:text-brand-ink"
+                }`}
               >
                 {l.flag} {l.label}
               </button>
@@ -71,7 +75,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="text-2xl text-cyber-cyan md:hidden"
+          className="text-2xl text-brand-teal md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Menu"
         >
@@ -80,21 +84,21 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-cyber-border/50 px-4 py-4 font-tech text-sm md:hidden">
-          <div className="flex flex-col gap-3 text-gray-300">
-            <Link href="/#about" onClick={() => setOpen(false)}>
+        <div className="border-t border-brand-border bg-white px-4 py-4 text-sm md:hidden">
+          <div className="flex flex-col gap-3">
+            <Link href="/#about" onClick={() => setOpen(false)} className={linkClass}>
               {t("procedure")}
             </Link>
-            <Link href="/about" onClick={() => setOpen(false)}>
+            <Link href="/about" onClick={() => setOpen(false)} className={linkClass}>
               {t("about")}
             </Link>
-            <Link href="/services" onClick={() => setOpen(false)}>
+            <Link href="/services" onClick={() => setOpen(false)} className={linkClass}>
               {t("services")}
             </Link>
-            <Link href="/contact" onClick={() => setOpen(false)}>
+            <Link href="/contact" onClick={() => setOpen(false)} className={linkClass}>
               {t("contact")}
             </Link>
-            <Link href="/portal" onClick={() => setOpen(false)}>
+            <Link href="/portal" onClick={() => setOpen(false)} className={linkClass}>
               {t("clientPortal")}
             </Link>
             <div className="flex gap-2 pt-2">
@@ -103,7 +107,7 @@ export function SiteHeader() {
                   key={l.code}
                   type="button"
                   onClick={() => switchLocale(l.code)}
-                  className="rounded border border-gray-700 px-3 py-1"
+                  className="rounded-lg border border-brand-border px-3 py-1"
                 >
                   {l.flag} {l.label}
                 </button>

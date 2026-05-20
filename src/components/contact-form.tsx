@@ -43,10 +43,10 @@ export function ContactForm() {
     <form onSubmit={onSubmit} className="glass-panel mx-auto max-w-xl space-y-5 rounded-2xl p-8">
       <input type="text" name="company" className="hidden" tabIndex={-1} autoComplete="off" />
       {status === "ok" && (
-        <p className="rounded-lg bg-emerald-500/10 p-3 text-center text-sm text-emerald-400">{t("success")}</p>
+        <p className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-center text-sm text-emerald-800">{t("success")}</p>
       )}
       {status === "err" && (
-        <p className="rounded-lg bg-red-500/10 p-3 text-center text-sm text-red-400">{t("error")}</p>
+        <p className="rounded-lg border border-red-200 bg-red-50 p-3 text-center text-sm text-red-700">{t("error")}</p>
       )}
       <div className="grid gap-5 md:grid-cols-2">
         <input name="firstName" required placeholder={t("firstName")} className="tech-input" />

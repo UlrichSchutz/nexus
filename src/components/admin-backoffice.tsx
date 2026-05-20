@@ -140,15 +140,15 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
     <section className="px-4 py-12">
       <div className="container mx-auto max-w-7xl">
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
-          <h1 className="font-tech text-3xl font-bold text-white">{labels.title}</h1>
+          <h1 className="font-display text-3xl font-bold text-brand-ink">{labels.title}</h1>
           <div className="flex gap-3">
-            <Link href="/portal" className="text-sm text-cyber-cyan hover:underline">
+            <Link href="/portal" className="text-sm text-brand-teal hover:underline">
               {labels.clientPortal}
             </Link>
             <button
               type="button"
               onClick={() => signOut({ callbackUrl: `/${locale}` })}
-              className="text-sm text-gray-500 hover:text-white"
+              className="text-sm text-brand-light hover:text-brand-teal"
             >
               Logout
             </button>
@@ -159,8 +159,8 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
           <button
             type="button"
             onClick={() => setTab("clients")}
-            className={`rounded-lg px-5 py-2 font-tech text-sm uppercase ${
-              tab === "clients" ? "bg-cyber-cyan text-cyber-dark" : "border border-gray-600 text-gray-400"
+            className={`rounded-lg px-5 py-2 font-display text-sm uppercase ${
+              tab === "clients" ? "bg-brand-teal text-white" : "border border-brand-border text-brand-muted"
             }`}
           >
             {labels.clients}
@@ -168,8 +168,8 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
           <button
             type="button"
             onClick={() => setTab("withdrawals")}
-            className={`rounded-lg px-5 py-2 font-tech text-sm uppercase ${
-              tab === "withdrawals" ? "bg-cyber-cyan text-cyber-dark" : "border border-gray-600 text-gray-400"
+            className={`rounded-lg px-5 py-2 font-display text-sm uppercase ${
+              tab === "withdrawals" ? "bg-brand-teal text-white" : "border border-brand-border text-brand-muted"
             }`}
           >
             {labels.withdrawals}
@@ -184,7 +184,7 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
         {tab === "clients" && (
           <>
             <div className="glass-panel mb-12 rounded-2xl p-6 md:p-8">
-              <h2 className="mb-6 font-tech text-xl font-bold text-cyber-cyan">
+              <h2 className="mb-6 font-display text-xl font-bold text-brand-teal">
                 + {labels.createClient}
               </h2>
               <form onSubmit={createClient} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -202,15 +202,15 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
             </div>
 
             <div className="glass-panel overflow-hidden rounded-2xl">
-              <h2 className="border-b border-cyber-border p-6 font-tech text-xl font-bold text-white">
+              <h2 className="border-b border-brand-border p-6 font-display text-xl font-bold text-brand-ink">
                 {labels.clients} ({clients.length})
               </h2>
               {loading ? (
-                <p className="p-8 text-center text-gray-500">...</p>
+                <p className="p-8 text-center text-brand-light">...</p>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[1100px] text-left text-sm">
-                    <thead className="border-b border-cyber-border bg-cyber-dark/50 font-tech text-xs uppercase text-gray-500">
+                    <thead className="border-b border-brand-border bg-brand-canvas/50 font-display text-xs uppercase text-brand-light">
                       <tr>
                         <th className="p-3">{labels.email}</th>
                         <th className="p-3">Name</th>
@@ -223,9 +223,9 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
                     </thead>
                     <tbody>
                       {clients.map((c) => (
-                        <tr key={c.id} className="border-b border-cyber-border/50 align-top hover:bg-white/5">
-                          <td className="p-3 text-gray-300">{c.email}</td>
-                          <td className="p-3 text-gray-300">{c.firstName} {c.lastName}</td>
+                        <tr key={c.id} className="border-b border-brand-border/50 align-top hover:bg-brand-canvas">
+                          <td className="p-3 text-brand-muted">{c.email}</td>
+                          <td className="p-3 text-brand-muted">{c.firstName} {c.lastName}</td>
                           <td className="p-3">
                             <input type="number" step="0.00000001" min="0" className="tech-input w-28" value={edits[c.id]?.btc ?? "0"} onChange={(e) => setEdits((p) => ({ ...p, [c.id]: { ...p[c.id], btc: e.target.value, eur: p[c.id]?.eur ?? "0", systemNotice: p[c.id]?.systemNotice ?? "", note: p[c.id]?.note ?? "" } }))} />
                           </td>
@@ -239,7 +239,7 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
                             <input className="tech-input min-w-[120px] text-xs" value={edits[c.id]?.note ?? ""} onChange={(e) => setEdits((p) => ({ ...p, [c.id]: { ...p[c.id], note: e.target.value, btc: p[c.id]?.btc ?? "0", eur: p[c.id]?.eur ?? "0", systemNotice: p[c.id]?.systemNotice ?? "" } }))} />
                           </td>
                           <td className="p-3">
-                            <button type="button" onClick={() => saveBalance(c.id)} className="rounded border border-cyber-cyan px-3 py-2 text-xs font-tech uppercase text-cyber-cyan hover:bg-cyber-cyan/10">
+                            <button type="button" onClick={() => saveBalance(c.id)} className="rounded border border-brand-teal px-3 py-2 text-xs font-display uppercase text-brand-teal hover:bg-brand-teal/10">
                               {labels.save}
                             </button>
                           </td>
@@ -255,55 +255,55 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
 
         {tab === "withdrawals" && (
           <div className="glass-panel overflow-hidden rounded-2xl">
-            <h2 className="border-b border-cyber-border p-6 font-tech text-xl font-bold text-white">
+            <h2 className="border-b border-brand-border p-6 font-display text-xl font-bold text-brand-ink">
               {labels.withdrawals}
             </h2>
             {loading ? (
-              <p className="p-8 text-center text-gray-500">...</p>
+              <p className="p-8 text-center text-brand-light">...</p>
             ) : withdrawals.length === 0 ? (
-              <p className="p-8 text-center text-gray-500">{labels.noWithdrawals}</p>
+              <p className="p-8 text-center text-brand-light">{labels.noWithdrawals}</p>
             ) : (
-              <div className="divide-y divide-cyber-border/50">
+              <div className="divide-y divide-brand-border/50">
                 {withdrawals.map((w) => (
                   <div key={w.id} className="p-6">
                     <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <p className="font-tech text-lg text-white">
+                        <p className="font-display text-lg text-brand-ink">
                           {Number(w.btcAmount).toFixed(8)} BTC
-                          <span className={`ml-3 rounded px-2 py-0.5 text-xs ${w.status === "PENDING" ? "bg-amber-500/20 text-amber-400" : "bg-gray-700 text-gray-300"}`}>
+                          <span className={`ml-3 rounded px-2 py-0.5 text-xs ${w.status === "PENDING" ? "bg-amber-100 text-amber-800" : w.status === "REJECTED" ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-800"}`}>
                             {w.status}
                           </span>
                         </p>
-                        <p className="mt-1 text-sm text-gray-400">
+                        <p className="mt-1 text-sm text-brand-muted">
                           {w.user.firstName} {w.user.lastName} · {w.user.email}
                         </p>
-                        <p className="mt-1 text-xs text-gray-500">
+                        <p className="mt-1 text-xs text-brand-light">
                           {new Date(w.createdAt).toLocaleString(locale)}
                         </p>
                       </div>
                       <div className="flex flex-wrap gap-2">
                         {w.status === "PENDING" && (
                           <>
-                            <button type="button" onClick={() => updateWithdrawal(w.id, "APPROVED")} className="rounded border border-emerald-500/50 px-3 py-1 text-xs text-emerald-400 hover:bg-emerald-500/10">
+                            <button type="button" onClick={() => updateWithdrawal(w.id, "APPROVED")} className="rounded border border-emerald-500/50 px-3 py-1 text-xs text-emerald-700 hover:bg-emerald-50">
                               {labels.approve}
                             </button>
-                            <button type="button" onClick={() => updateWithdrawal(w.id, "REJECTED")} className="rounded border border-red-500/50 px-3 py-1 text-xs text-red-400 hover:bg-red-500/10">
+                            <button type="button" onClick={() => updateWithdrawal(w.id, "REJECTED")} className="rounded border border-red-500/50 px-3 py-1 text-xs text-red-600 hover:bg-red-500/10">
                               {labels.reject}
                             </button>
                           </>
                         )}
                         {w.status === "APPROVED" && (
-                          <button type="button" onClick={() => updateWithdrawal(w.id, "COMPLETED")} className="rounded border border-cyber-cyan/50 px-3 py-1 text-xs text-cyber-cyan">
+                          <button type="button" onClick={() => updateWithdrawal(w.id, "COMPLETED")} className="rounded border border-brand-teal/50 px-3 py-1 text-xs text-brand-teal">
                             {labels.complete}
                           </button>
                         )}
                       </div>
                     </div>
-                    <div className="rounded-lg border border-cyber-border bg-cyber-dark/50 p-4 text-sm">
-                      <p className="text-gray-500">{labels.recipientName}: <span className="text-white">{w.bankAccount.recipientName}</span></p>
-                      <p className="text-gray-500">IBAN: <span className="font-mono text-white">{w.bankAccount.iban}</span></p>
-                      <p className="text-gray-500">BIC: <span className="font-mono text-white">{w.bankAccount.bic}</span></p>
-                      {w.clientNote && <p className="mt-2 text-gray-400">{labels.clientNote}: {w.clientNote}</p>}
+                    <div className="rounded-lg border border-brand-border bg-brand-canvas/50 p-4 text-sm">
+                      <p className="text-brand-light">{labels.recipientName}: <span className="text-brand-ink">{w.bankAccount.recipientName}</span></p>
+                      <p className="text-brand-light">IBAN: <span className="font-mono text-brand-ink">{w.bankAccount.iban}</span></p>
+                      <p className="text-brand-light">BIC: <span className="font-mono text-brand-ink">{w.bankAccount.bic}</span></p>
+                      {w.clientNote && <p className="mt-2 text-brand-muted">{labels.clientNote}: {w.clientNote}</p>}
                     </div>
                   </div>
                 ))}

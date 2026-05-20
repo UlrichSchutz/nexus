@@ -22,117 +22,147 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <header className="hero-bg relative pb-24 pt-16 md:pb-32 md:pt-24">
+      <header className="hero-bg relative pb-20 pt-12 md:pb-28 md:pt-16">
         <div className="container relative z-10 mx-auto flex flex-col items-center gap-12 px-4 lg:flex-row">
           <div className="lg:w-3/5">
-            <div className="mb-6 inline-block rounded border border-cyber-cyan/40 bg-cyber-cyan/10 px-4 py-1.5 font-tech text-xs font-bold uppercase tracking-widest text-cyber-cyan backdrop-blur-sm">
-              🛡 {t("badge")}
-            </div>
-            <h1 className="mb-6 font-tech text-4xl font-bold leading-tight text-white md:text-6xl">
+            <div className="trust-badge mb-6">{t("badge")}</div>
+            <h1 className="mb-6 font-display text-4xl font-bold leading-tight text-brand-ink md:text-5xl lg:text-6xl">
               {t("title")}{" "}
-              <span className="gradient-text">{t("titleHighlight")}</span>{" "}
-              {t("titleEnd")}
+              <span className="gradient-text">{t("titleHighlight")}</span> {t("titleEnd")}
             </h1>
-            <p className="mb-8 max-w-2xl border-l-2 border-cyber-cyan pl-4 text-lg leading-relaxed text-gray-300 md:text-xl">
+            <p className="mb-8 max-w-2xl border-l-4 border-brand-teal pl-5 text-lg leading-relaxed text-brand-muted md:text-xl">
               {t("subtitle")}
             </p>
-            <div className="scanner-container inline-block rounded-xl border border-cyber-cyan/30 bg-cyber-dark/50 p-1">
-              <div className="flex h-48 w-full max-w-lg items-center justify-center rounded-lg bg-gradient-to-br from-cyber-panel to-cyber-dark md:h-64">
-                <div className="text-center font-tech text-cyber-cyan/80">
-                  <div className="text-4xl font-bold">₿</div>
-                  <p className="mt-2 text-sm uppercase tracking-widest">Blockchain Analysis</p>
+            <div className="inline-block rounded-2xl border border-brand-border bg-white p-6 shadow-card">
+              <div className="flex h-40 w-full max-w-md items-center justify-center rounded-xl bg-gradient-to-br from-brand-tealLight to-white md:h-52">
+                <div className="text-center">
+                  <div className="font-display text-4xl font-bold text-brand-teal">₿</div>
+                  <p className="mt-2 text-sm font-medium uppercase tracking-wide text-brand-muted">
+                    Blockchain Analysis
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="w-full lg:w-2/5" id="form">
-            <div className="glass-panel group relative overflow-hidden rounded-2xl p-8 md:p-10">
-              <h2 className="mb-6 flex items-center justify-center gap-3 text-center font-tech text-2xl font-bold text-white">
-                📋 {t("formTitle")}
+            <div className="glass-panel p-8 md:p-10">
+              <h2 className="mb-2 text-center font-display text-2xl font-bold text-brand-ink">
+                {t("formTitle")}
               </h2>
+              <p className="mb-6 text-center text-sm text-brand-muted">
+                {locale === "de"
+                  ? "Kostenlose Ersteinschätzung — vertraulich & unverbindlich"
+                  : "Free initial assessment — confidential & non-binding"}
+              </p>
               <LeadForm />
             </div>
           </div>
         </div>
       </header>
 
-      <section className="relative border-t border-cyber-border py-20" id="about">
+      <section className="border-b border-brand-border bg-white py-8">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center gap-16 md:flex-row">
-            <div className="scanner-container rounded-2xl border border-cyber-border bg-cyber-panel p-1 md:w-1/2">
-              <div className="flex h-64 items-center justify-center rounded-xl bg-cyber-dark/80">
-                <span className="font-tech text-6xl text-cyber-cyan/30">◈</span>
-              </div>
-            </div>
-            <div className="md:w-1/2">
-              <h2 className="mb-6 font-tech text-3xl font-bold gradient-text md:text-4xl">
-                {t("aboutTitle")}
-              </h2>
-              <p className="mb-6 text-lg leading-relaxed text-gray-300">{t("aboutText")}</p>
-              <div className="mt-8 grid gap-6 sm:grid-cols-2">
-                <div className="glass-panel rounded-lg border-l-4 border-l-cyber-cyan p-5">
-                  <h4 className="font-tech font-bold text-white">⛓ {t("blockchain")}</h4>
-                  <p className="mt-2 text-sm text-gray-400">{t("blockchainDesc")}</p>
-                </div>
-                <div className="glass-panel rounded-lg border-l-4 border-l-cyber-blue p-5">
-                  <h4 className="font-tech font-bold text-white">🔍 {t("identification")}</h4>
-                  <p className="mt-2 text-sm text-gray-400">{t("identificationDesc")}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-cyber-border bg-cyber-panel py-20">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto mb-16 max-w-3xl text-center">
-            <h2 className="mb-4 font-tech text-3xl font-bold md:text-4xl">{t("stepsTitle")}</h2>
-            <div className="mx-auto h-1 w-24 rounded bg-cyber-cyan shadow-[0_0_10px_rgba(0,229,255,0.8)]" />
-            <p className="mt-6 text-gray-400">{t("stepsSubtitle")}</p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {steps.map((step, i) => (
-              <div key={i} className="glass-panel neon-border flex h-full flex-col rounded-xl p-6">
-                <div className="mb-4 font-tech text-3xl text-cyber-cyan">{i + 1}</div>
-                <h3 className="mb-3 font-tech text-xl font-bold text-white">{step.title}</h3>
-                <p className="flex-grow text-sm text-gray-400">{step.desc}</p>
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+            {[
+              locale === "de" ? "Schweizer Expertise" : "Swiss expertise",
+              locale === "de" ? "Vertrauliche Beratung" : "Confidential advice",
+              locale === "de" ? "FINMA-orientiert" : "FINMA-oriented",
+              locale === "de" ? "DE / EN Support" : "DE / EN support",
+            ].map((label) => (
+              <div key={label} className="flex items-center gap-2 text-sm font-medium text-brand-muted">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-tealLight text-brand-teal">✓</span>
+                {label}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20">
+      <section className="section-alt border-y border-brand-border py-20" id="about">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center gap-16 md:flex-row">
+            <div className="rounded-2xl border border-brand-border bg-brand-canvas p-8 md:w-1/2">
+              <div className="flex h-64 items-center justify-center rounded-xl bg-white shadow-soft">
+                <span className="font-display text-6xl text-brand-teal/30">◈</span>
+              </div>
+            </div>
+            <div className="md:w-1/2">
+              <h2 className="mb-6 font-display text-3xl font-bold text-brand-ink md:text-4xl">
+                <span className="gradient-text">{t("aboutTitle")}</span>
+              </h2>
+              <p className="mb-6 text-lg leading-relaxed text-brand-muted">{t("aboutText")}</p>
+              <div className="mt-8 grid gap-6 sm:grid-cols-2">
+                <div className="glass-panel border-l-4 border-l-brand-teal p-5">
+                  <h4 className="font-display font-bold text-brand-ink">{t("blockchain")}</h4>
+                  <p className="mt-2 text-sm text-brand-muted">{t("blockchainDesc")}</p>
+                </div>
+                <div className="glass-panel border-l-4 border-l-brand-tealDark p-5">
+                  <h4 className="font-display font-bold text-brand-ink">{t("identification")}</h4>
+                  <p className="mt-2 text-sm text-brand-muted">{t("identificationDesc")}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-canvas py-20">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto mb-16 max-w-3xl text-center">
+            <h2 className="mb-4 font-display text-3xl font-bold text-brand-ink md:text-4xl">
+              {t("stepsTitle")}
+            </h2>
+            <div className="mx-auto h-1 w-16 rounded-full bg-brand-teal" />
+            <p className="mt-6 text-brand-muted">{t("stepsSubtitle")}</p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {steps.map((step, i) => (
+              <div key={i} className="glass-panel flex h-full flex-col p-6">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-brand-teal font-display text-lg font-bold text-white">
+                  {i + 1}
+                </div>
+                <h3 className="mb-3 font-display text-xl font-bold text-brand-ink">{step.title}</h3>
+                <p className="flex-grow text-sm text-brand-muted">{step.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-alt py-20">
         <div className="container mx-auto max-w-4xl px-4">
-          <h2 className="mb-10 text-center font-tech text-3xl font-bold">{t("overviewTitle")}</h2>
-          <div className="glass-panel mb-20 overflow-hidden rounded-xl border border-cyber-border">
+          <h2 className="mb-10 text-center font-display text-3xl font-bold text-brand-ink">
+            {t("overviewTitle")}
+          </h2>
+          <div className="glass-panel mb-20 overflow-hidden">
             <table className="w-full border-collapse text-left text-sm md:text-base">
               <tbody>
                 {[
-                  ["⏱", t("consultFree")],
-                  ["📄", t("analysisDuration")],
-                  ["🪙", t("assets")],
-                  ["🌐", t("availability")],
-                ].map(([icon, val], i) => (
-                  <tr key={i} className="border-b border-cyber-border transition hover:bg-white/5">
-                    <td className="w-1/3 p-4 font-bold text-cyber-cyan md:p-6">{icon}</td>
-                    <td className="p-4 text-gray-300 md:p-6">{val}</td>
+                  [t("consultFree")],
+                  [t("analysisDuration")],
+                  [t("assets")],
+                  [t("availability")],
+                ].map(([val], i) => (
+                  <tr key={i} className="border-b border-brand-border transition hover:bg-brand-canvas">
+                    <td className="p-4 font-medium text-brand-teal md:p-6">✓</td>
+                    <td className="p-4 text-brand-muted md:p-6">{val}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <h2 className="mb-8 text-center font-tech text-3xl font-bold">{t("faqTitle")}</h2>
+          <h2 className="mb-8 text-center font-display text-3xl font-bold text-brand-ink">
+            {t("faqTitle")}
+          </h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className={`glass-panel rounded-lg border-l-2 p-6 ${i % 2 === 0 ? "border-l-cyber-cyan" : "border-l-cyber-blue"}`}
+                className="glass-panel border-l-4 border-l-brand-teal p-6"
               >
-                <h3 className="mb-2 text-lg font-bold text-white">{faq.q}</h3>
-                <p className="text-sm text-gray-400">{faq.a}</p>
+                <h3 className="mb-2 font-display text-lg font-bold text-brand-ink">{faq.q}</h3>
+                <p className="text-sm text-brand-muted">{faq.a}</p>
               </div>
             ))}
           </div>

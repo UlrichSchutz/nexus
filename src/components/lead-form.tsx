@@ -64,11 +64,11 @@ export function LeadForm() {
         pattern="^\+?[0-9\s\-\(\)]{8,20}$"
         className="tech-input"
       />
-      <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-800 bg-cyber-dark/50 p-3 text-xs text-gray-400">
-        <input type="checkbox" required className="mt-0.5 h-4 w-4 accent-cyber-cyan" />
+      <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-3 text-xs text-brand-muted">
+        <input type="checkbox" required className="mt-0.5 h-4 w-4 accent-brand-teal" />
         <span className="leading-relaxed">{t("consent")}</span>
       </label>
-      {error && <p className="text-sm text-red-400">{error}</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
       <button type="submit" disabled={loading} className="btn-cyber w-full disabled:opacity-60">
         {loading ? "..." : t("submit")} →
       </button>

@@ -32,7 +32,7 @@
   }
 
   .btn-cyber {
-    @apply rounded-lg bg-brand-teal px-6 py-3 font-sans text-sm font-semibold text-white shadow-soft transition hover:bg-brand-tealDark focus:outline-none focus:ring-2 focus:ring-brand-teal/40;
+    @apply inline-flex items-center justify-center rounded-lg bg-brand-teal px-6 py-3 font-sans text-sm font-semibold text-white shadow-soft transition hover:bg-brand-tealDark hover:shadow-lift focus:outline-none focus:ring-2 focus:ring-brand-teal/40;
   }
 
   .btn-outline {

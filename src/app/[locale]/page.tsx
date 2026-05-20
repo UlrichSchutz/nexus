@@ -1,5 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 import { LeadForm } from "@/components/lead-form";
+import { SiteCta } from "@/components/site-cta";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -33,12 +35,27 @@ export default async function HomePage({ params }: Props) {
             <p className="mb-8 max-w-2xl border-l-4 border-brand-teal pl-5 text-lg leading-relaxed text-brand-muted md:text-xl">
               {t("subtitle")}
             </p>
-            <div className="inline-block rounded-2xl border border-brand-border bg-white p-6 shadow-card">
-              <div className="flex h-40 w-full max-w-md items-center justify-center rounded-xl bg-gradient-to-br from-brand-tealLight to-white md:h-52">
-                <div className="text-center">
-                  <div className="font-display text-4xl font-bold text-brand-teal">₿</div>
-                  <p className="mt-2 text-sm font-medium uppercase tracking-wide text-brand-muted">
-                    Blockchain Analysis
+            <div className="flex flex-wrap gap-4">
+              <Link href="/#form" className="btn-cyber">
+                {t("heroCta")}
+              </Link>
+              <Link href="/contact" className="btn-outline">
+                {locale === "de" ? "Kontakt" : "Contact"}
+              </Link>
+            </div>
+            <div className="mt-8 inline-block rounded-2xl border border-brand-border bg-white p-6 shadow-card">
+              <div className="flex h-36 w-full max-w-md items-center gap-6 rounded-xl bg-gradient-to-br from-brand-tealLight to-white px-8 md:h-44">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-teal text-3xl text-white shadow-soft">
+                  €
+                </div>
+                <div className="text-left">
+                  <p className="font-serif text-lg font-bold text-brand-ink">
+                    {locale === "de" ? "Forensik & Auszahlung in EUR" : "Forensics & EUR payouts"}
+                  </p>
+                  <p className="mt-1 text-sm text-brand-muted">
+                    {locale === "de"
+                      ? "Sichere Banküberweisung auf Ihre IBAN"
+                      : "Secure bank transfer to your IBAN"}
                   </p>
                 </div>
               </div>
@@ -130,9 +147,11 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
+      <SiteCta title={t("ctaTitle")} subtitle={t("ctaSubtitle")} locale={locale} />
+
       <section className="section-alt py-20">
         <div className="container mx-auto max-w-4xl px-4">
-          <h2 className="mb-10 text-center font-display text-3xl font-bold text-brand-ink">
+          <h2 className="mb-10 text-center font-serif text-3xl font-bold text-brand-ink">
             {t("overviewTitle")}
           </h2>
           <div className="glass-panel mb-20 overflow-hidden">

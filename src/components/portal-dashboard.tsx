@@ -21,7 +21,7 @@ type AccountData = {
 };
 
 type BankAccount = { recipientName: string; iban: string; bic: string };
-type Withdrawal = { id: string; btcAmount: string; status: string; createdAt: string; clientNote: string | null };
+type Withdrawal = { id: string; eurAmount: string; status: string; createdAt: string; clientNote: string | null };
 type Labels = Record<string, string>;
 
 function safeNum(value: unknown): number {
@@ -53,7 +53,7 @@ export function PortalDashboard({
   const [withdrawals, setWithdrawals] = useState<Withdrawal[]>([]);
   const [loading, setLoading] = useState(true);
   const [bankForm, setBankForm] = useState({ recipientName: "", iban: "", bic: "" });
-  const [withdrawBtc, setWithdrawBtc] = useState("");
+  const [withdrawEur, setWithdrawEur] = useState("");
   const [withdrawNote, setWithdrawNote] = useState("");
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
@@ -128,7 +128,7 @@ export function PortalDashboard({
     e.preventDefault();
     setErr("");
     setMsg("");
-    const amount = parseFloat(withdrawBtc);
+    const amount = parseFloat(withdrawEur);
     if (!amount || amount <= 0) {
       setErr(labels.withdrawError);
       return;
@@ -136,12 +136,12 @@ export function PortalDashboard({
     const res = await fetch("/api/portal/withdrawal", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ btcAmount: amount, clientNote: withdrawNote || undefined }),
+      body: JSON.stringify({ eurAmount: amount, clientNote: withdrawNote || undefined }),
     });
     const data = await res.json().catch(() => ({}));
     if (res.ok) {
       setMsg(labels.withdrawSent);
-      setWithdrawBtc("");
+      setWithdrawEur("");
       setWithdrawNote("");
       load();
     } else {
@@ -292,14 +292,28 @@ export function PortalDashboard({
                   </form>
                 </div>
 
-                <div className="glass-panel rounded-2xl p-6 md:p-8">
-                  <h2 className="mb-2 font-display text-xl font-bold text-brand-ink">{labels.withdrawTitle}</h2>
-                  <p className="mb-6 text-sm text-brand-light">{labels.withdrawDesc}</p>
+                <div className="glass-panel rounded-2xl border border-brand-teal/20 p-6 md:p-8">
+                  <h2 className="mb-2 font-serif text-xl font-bold text-brand-ink">{labels.withdrawTitle}</h2>
+                  <p className="mb-6 text-sm text-brand-muted">{labels.withdrawDesc}</p>
                   <form onSubmit={submitWithdrawal} className="space-y-4">
                     <div className="grid gap-4 md:grid-cols-2">
-                      <input className="tech-input" type="number" step="0.00000001" min="0" max={btc} placeholder={labels.withdrawAmount} required value={withdrawBtc} onChange={(e) => setWithdrawBtc(e.target.value)} />
-                      <p className="flex items-center text-xs text-brand-light md:justify-end">
-                        {labels.maxWithdraw}: {btc.toFixed(8)} BTC
+                      <div>
+                        <label className="mb-1 block text-xs font-medium text-brand-muted">{labels.withdrawAmount}</label>
+                        <input
+                          className="tech-input"
+                          type="number"
+                          step="0.01"
+                          min="0.01"
+                          max={displayEur}
+                          placeholder="0.00"
+                          required
+                          value={withdrawEur}
+                          onChange={(e) => setWithdrawEur(e.target.value)}
+                        />
+                      </div>
+                      <p className="flex flex-col justify-end text-xs text-brand-muted md:text-right">
+                        <span>{labels.maxWithdraw}</span>
+                        <span className="font-semibold text-brand-teal">{formatEur(displayEur, locale)}</span>
                       </p>
                     </div>
                     <textarea className="tech-input resize-y" rows={3} placeholder={labels.withdrawNote} value={withdrawNote} onChange={(e) => setWithdrawNote(e.target.value)} />
@@ -315,7 +329,9 @@ export function PortalDashboard({
                       {withdrawals.map((w) => (
                         <li key={w.id} className="flex flex-wrap items-center justify-between gap-3 p-5">
                           <div>
-                            <p className="font-display text-brand-ink">{Number(w.btcAmount).toFixed(8)} BTC</p>
+                            <p className="font-serif font-semibold text-brand-ink">
+                              {formatEur(Number(w.eurAmount), locale)}
+                            </p>
                             <p className="text-xs text-brand-light">{new Date(w.createdAt).toLocaleString(locale)}</p>
                           </div>
                           <span className={`rounded px-3 py-1 text-xs font-medium uppercase ${w.status === "PENDING" ? "bg-amber-100 text-amber-800" : w.status === "REJECTED" ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-800"}`}>

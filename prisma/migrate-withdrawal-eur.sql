@@ -1,0 +1,2 @@
+-- Run once on Render Shell if db push fails after renaming btcAmount -> eurAmount:
+-- ALTER TABLE "WithdrawalRequest" RENAME COLUMN "btcAmount" TO "eurAmount";

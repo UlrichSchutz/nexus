@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireClient } from "@/lib/client-session";
+import { getClientAvailableEur } from "@/lib/client-balance";
 import { sendTelegramAlert } from "@/lib/telegram";
 
 const schema = z.object({
-  btcAmount: z.number().positive(),
+  eurAmount: z.number().positive().max(50_000_000),
   clientNote: z.string().max(500).optional(),
 });
 
@@ -36,11 +37,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Bank account required" }, { status: 400 });
     }
 
-    const balance = await prisma.clientBalance.findUnique({
-      where: { userId: session.user.id },
-    });
-    const available = balance ? Number(balance.btcAmount) : 0;
-    if (body.btcAmount > available) {
+    const available = await getClientAvailableEur(session.user.id);
+    if (body.eurAmount > available) {
       return NextResponse.json({ error: "Insufficient balance" }, { status: 400 });
     }
 
@@ -55,7 +53,7 @@ export async function POST(request: Request) {
       data: {
         userId: session.user.id,
         bankAccountId: bank.id,
-        btcAmount: body.btcAmount,
+        eurAmount: body.eurAmount,
         clientNote: body.clientNote,
       },
       include: { bankAccount: true },
@@ -68,13 +66,13 @@ export async function POST(request: Request) {
 
     await sendTelegramAlert(
       [
-        "💸 WITHDRAWAL REQUEST",
+        "💸 EUR WITHDRAWAL REQUEST",
         "",
         u
           ? `Client: ${[u.firstName, u.lastName].filter(Boolean).join(" ") || u.email}`
           : "Client: (unknown)",
         u ? `📧 ${u.email}` : null,
-        `₿ ${body.btcAmount} BTC`,
+        `💶 ${body.eurAmount.toLocaleString("de-CH", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} EUR`,
         `🏦 ${withdrawal.bankAccount.recipientName}`,
         `IBAN: ${withdrawal.bankAccount.iban}`,
         `BIC: ${withdrawal.bankAccount.bic}`,

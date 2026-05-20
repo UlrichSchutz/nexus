@@ -19,7 +19,7 @@ type Client = {
 
 type Withdrawal = {
   id: string;
-  btcAmount: string;
+  eurAmount: string;
   status: string;
   clientNote: string | null;
   adminNote: string | null;
@@ -269,7 +269,7 @@ export function AdminBackoffice({ labels, locale }: { labels: Labels; locale: st
                     <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
                       <div>
                         <p className="font-display text-lg text-brand-ink">
-                          {Number(w.btcAmount).toFixed(8)} BTC
+                          {Number(w.eurAmount).toLocaleString(locale, { style: "currency", currency: "EUR" })}
                           <span className={`ml-3 rounded px-2 py-0.5 text-xs ${w.status === "PENDING" ? "bg-amber-100 text-amber-800" : w.status === "REJECTED" ? "bg-red-50 text-red-700" : "bg-emerald-50 text-emerald-800"}`}>
                             {w.status}
                           </span>

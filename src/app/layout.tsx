@@ -9,7 +9,7 @@ const inter = Inter({
 
 const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "400",
   variable: "--font-dm-serif",
 });
 

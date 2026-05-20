@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
+import { sendTelegramAlert } from "@/lib/telegram";
 
 const schema = z.object({
   firstName: z.string().min(1),
@@ -31,6 +32,22 @@ export async function POST(request: Request) {
         ip,
       },
     });
+
+    await sendTelegramAlert(
+      [
+        "📩 CONTACT FORM",
+        "",
+        `${data.firstName} ${data.lastName}`,
+        `📧 ${data.email}`,
+        `📞 ${data.phone}`,
+        `🌐 ${data.locale ?? "de"}`,
+        ip ? `IP: ${ip}` : null,
+        "",
+        data.message,
+      ]
+        .filter(Boolean)
+        .join("\n")
+    );
 
     return NextResponse.json({ ok: true });
   } catch {

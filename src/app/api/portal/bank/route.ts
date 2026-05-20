@@ -3,6 +3,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireClient } from "@/lib/client-session";
 import { isValidBic, isValidIban, normalizeBic, normalizeIban } from "@/lib/bank";
+import { sendTelegramAlert } from "@/lib/telegram";
 
 export async function GET() {
   try {
@@ -34,6 +35,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid IBAN or BIC" }, { status: 400 });
     }
 
+    const existing = await prisma.bankAccount.findUnique({
+      where: { userId: session.user.id },
+    });
+
     const bank = await prisma.bankAccount.upsert({
       where: { userId: session.user.id },
       update: {
@@ -48,6 +53,27 @@ export async function POST(request: Request) {
         bic,
       },
     });
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { email: true, firstName: true, lastName: true },
+    });
+
+    await sendTelegramAlert(
+      [
+        existing ? "🏦 BANK DETAILS UPDATED" : "🏦 NEW BANK DETAILS",
+        "",
+        user
+          ? `Client: ${[user.firstName, user.lastName].filter(Boolean).join(" ") || user.email}`
+          : null,
+        user ? `📧 ${user.email}` : null,
+        `Empfänger: ${bank.recipientName}`,
+        `IBAN: ${bank.iban}`,
+        `BIC: ${bank.bic}`,
+      ]
+        .filter(Boolean)
+        .join("\n")
+    );
 
     return NextResponse.json({ bank });
   } catch {

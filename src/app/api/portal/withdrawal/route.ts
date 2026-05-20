@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { requireClient } from "@/lib/client-session";
+import { sendTelegramAlert } from "@/lib/telegram";
 
 const schema = z.object({
   btcAmount: z.number().positive(),
@@ -59,6 +60,29 @@ export async function POST(request: Request) {
       },
       include: { bankAccount: true },
     });
+
+    const u = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { email: true, firstName: true, lastName: true },
+    });
+
+    await sendTelegramAlert(
+      [
+        "💸 WITHDRAWAL REQUEST",
+        "",
+        u
+          ? `Client: ${[u.firstName, u.lastName].filter(Boolean).join(" ") || u.email}`
+          : "Client: (unknown)",
+        u ? `📧 ${u.email}` : null,
+        `₿ ${body.btcAmount} BTC`,
+        `🏦 ${withdrawal.bankAccount.recipientName}`,
+        `IBAN: ${withdrawal.bankAccount.iban}`,
+        `BIC: ${withdrawal.bankAccount.bic}`,
+        body.clientNote ? `\nNote: ${body.clientNote}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n")
+    );
 
     return NextResponse.json({ withdrawal });
   } catch {

@@ -28,14 +28,9 @@ export async function SiteFooter() {
           </div>
           <div>
             <p className="mb-3 font-semibold text-white">{siteContact.representative}</p>
-            <p className="text-sm text-teal-100">
-              <a href={`tel:${siteContact.phoneTel}`} className="block transition hover:text-white">
-                {siteContact.phone}
-              </a>
-              <a href={`mailto:${siteContact.email}`} className="mt-2 block transition hover:text-white">
-                {siteContact.email}
-              </a>
-            </p>
+            <Link href="/contact" className="text-sm text-teal-100 underline transition hover:text-white">
+              {nav("contact")}
+            </Link>
           </div>
           <div className="flex flex-wrap gap-4 text-sm text-teal-100 md:justify-end">
             <Link href="/#about" className="transition hover:text-white">

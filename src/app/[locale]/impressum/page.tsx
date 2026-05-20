@@ -27,14 +27,13 @@ export default async function ImpressumPage({ params }: Props) {
           <p>{siteContact.representative}</p>
           <h2>{de ? "Kontakt" : "Contact"}</h2>
           <p>
-            Tel: {siteContact.phone}
+            {de
+              ? "Anfragen über das Kontaktformular auf der Website oder über das Kundenportal (nach Anmeldung)."
+              : "Enquiries via the website contact form or the client portal (after sign-in)."}
             <br />
-            E-Mail:{" "}
-            <a href={`mailto:${siteContact.email}`} className="text-brand-teal hover:underline">
-              {siteContact.email}
-            </a>
-            <br />
-            Web: {siteContact.web}
+            <Link href="/contact" className="text-brand-teal hover:underline">
+              {de ? "Kontaktformular öffnen" : "Open contact form"}
+            </Link>
           </p>
         </div>
         <p className="mt-8 text-center text-sm">

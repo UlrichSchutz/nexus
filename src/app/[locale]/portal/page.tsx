@@ -23,6 +23,7 @@ const PORTAL_KEYS = [
   "newPassword", "confirmPassword", "changePassword", "passwordChanged", "passwordWrong",
   "passwordMismatch", "passwordTooShort", "passwordSame", "passwordError", "show", "hide",
   "email", "firstName", "lastName",
+  "withdrawInvalidAmount", "accountInactive", "databaseMigration",
 ] as const;
 
 export default async function PortalPage({ params }: Props) {

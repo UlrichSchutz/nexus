@@ -130,8 +130,8 @@ export function PortalDashboard({
     e.preventDefault();
     setErr("");
     setMsg("");
-    const amount = parseFloat(withdrawEur);
-    if (!amount || amount <= 0) {
+    const amount = parseFloat(String(withdrawEur).replace(",", ".").trim());
+    if (!Number.isFinite(amount) || amount <= 0) {
       setErr(labels.withdrawError);
       return;
     }
@@ -154,7 +154,13 @@ export function PortalDashboard({
             ? labels.insufficientBalance
             : data.error === "Pending request exists"
               ? labels.pendingExists
-              : labels.withdrawError
+              : data.error === "Invalid amount"
+                ? labels.withdrawInvalidAmount
+                : data.error === "Account inactive"
+                  ? labels.accountInactive
+                  : data.error === "Database migration required"
+                    ? labels.databaseMigration
+                    : labels.withdrawError
       );
     }
   }

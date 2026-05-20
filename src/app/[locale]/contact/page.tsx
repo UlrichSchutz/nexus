@@ -15,7 +15,9 @@ export default async function ContactPage({ params }: Props) {
       <div className="container mx-auto px-4">
         <PageHero title={t("title")} subtitle={t("subtitle")} />
         <ContactDetails locale={locale} />
-        <ContactForm />
+        <div id="contact-form">
+          <ContactForm />
+        </div>
       </div>
     </section>
   );

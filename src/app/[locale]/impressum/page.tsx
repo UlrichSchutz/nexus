@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 import { PageHero } from "@/components/page-hero";
+import { siteContact } from "@/lib/site-config";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -16,19 +17,24 @@ export default async function ImpressumPage({ params }: Props) {
         <div className="prose-section">
           <h2>{de ? "Unternehmensangaben" : "Company"}</h2>
           <p>
-            Nexus Tech CH
+            {siteContact.companyName}
             <br />
-            Wealth Management & IT Systems
+            {siteContact.tagline}
             <br />
-            Bern, Schweiz
+            {siteContact.location}
           </p>
+          <h2>{de ? siteContact.representativeRole.de : siteContact.representativeRole.en}</h2>
+          <p>{siteContact.representative}</p>
           <h2>{de ? "Kontakt" : "Contact"}</h2>
           <p>
-            Tel: +44 7451 250055
+            Tel: {siteContact.phone}
             <br />
-            Web: nexus-tech.info
+            E-Mail:{" "}
+            <a href={`mailto:${siteContact.email}`} className="text-brand-teal hover:underline">
+              {siteContact.email}
+            </a>
             <br />
-            E-Mail: info@nexus-tech.info
+            Web: {siteContact.web}
           </p>
         </div>
         <p className="mt-8 text-center text-sm">

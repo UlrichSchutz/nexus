@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { signOut } from "next-auth/react";
 import { Link } from "@/i18n/routing";
 import type { MarketSnapshot } from "@/lib/exchange";
+import { siteContact } from "@/lib/site-config";
 import { MarketGrid, MarketTicker } from "@/components/market-ticker";
 
 type AccountData = {
@@ -36,12 +37,6 @@ function formatEur(value: unknown, locale: string, maxFrac = 2): string {
     maximumFractionDigits: maxFrac,
   });
 }
-
-const SUPPORT = {
-  email: "info@nexus-tech.info",
-  phone: "+44 7451 250055",
-  web: "nexus-tech.info",
-};
 
 export function PortalDashboard({
   userName,
@@ -339,18 +334,24 @@ export function PortalDashboard({
                   <h2 className="mb-4 font-display text-xl font-bold text-brand-ink">{labels.supportTitle}</h2>
                   <p className="mb-6 text-sm leading-relaxed text-brand-muted">{labels.supportDesc}</p>
                   <div className="space-y-4 text-sm">
-                    <a href={`mailto:${SUPPORT.email}`} className="flex items-center gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-4 transition hover:border-brand-teal/50">
+                    <p className="mb-4 text-sm font-medium text-brand-ink">
+                      {siteContact.representative}
+                      <span className="block text-xs font-normal text-brand-muted">
+                        {locale === "de" ? siteContact.representativeRole.de : siteContact.representativeRole.en}
+                      </span>
+                    </p>
+                    <a href={`mailto:${siteContact.email}`} className="flex items-center gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-4 transition hover:border-brand-teal/50">
                       <span className="text-xl">✉</span>
                       <div>
                         <p className="text-xs text-brand-light">E-Mail</p>
-                        <p className="text-brand-teal">{SUPPORT.email}</p>
+                        <p className="text-brand-teal">{siteContact.email}</p>
                       </div>
                     </a>
-                    <a href={`tel:${SUPPORT.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-4 transition hover:border-brand-teal/50">
+                    <a href={`tel:${siteContact.phoneTel}`} className="flex items-center gap-3 rounded-lg border border-brand-border bg-brand-canvas/50 p-4 transition hover:border-brand-teal/50">
                       <span className="text-xl">📞</span>
                       <div>
                         <p className="text-xs text-brand-light">{labels.phone}</p>
-                        <p className="text-brand-ink">{SUPPORT.phone}</p>
+                        <p className="text-brand-ink">{siteContact.phone}</p>
                       </div>
                     </a>
                     <div className="rounded-lg border border-brand-border bg-brand-canvas/50 p-4">

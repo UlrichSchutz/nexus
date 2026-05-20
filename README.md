@@ -1,5 +1,7 @@
 # Nexus Tech CH — Web Application
 
+Light teal UI (Inter + DM Serif). Production deploy: commit `94ea9e3` or later.
+
 Modern Next.js site for **Nexus Tech Schweiz**: marketing (DE/EN), lead capture, **client portal** (BTC/EUR balances, live markets), and **admin backoffice** (clients, withdrawals, system notices).
 
 ## Features

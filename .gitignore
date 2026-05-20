@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Environment & secrets — NEVER commit
+.env
+.env.*
+!.env.example
+
+# Database files
+*.db
+*.db-journal
+prisma/dev.db
+prisma/*.db
+
+# Logs & backups
+*.log
+leads.txt
+contact.log
+error_log
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cursor/
+
+# Prisma generated (regenerated on install)
+# Keep migrations folder if present

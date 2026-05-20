@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum WithdrawalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  passwordHash        String
+  role                Role                 @default(CLIENT)
+  firstName           String?
+  lastName            String?
+  phone               String?
+  active              Boolean              @default(true)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  balance             ClientBalance?
+  bankAccount         BankAccount?
+  withdrawalRequests  WithdrawalRequest[]
+  auditLogs           BalanceAuditLog[]    @relation("AdminAudit")
+}
+
+model ClientBalance {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  btcAmount    Decimal  @default(0)
+  eurAmount    Decimal  @default(0)
+  systemNotice String?
+  note         String?
+  updatedAt    DateTime @updatedAt
+  updatedBy    String?
+}
+
+model BankAccount {
+  id            String              @id @default(cuid())
+  userId        String              @unique
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipientName String
+  iban          String
+  bic           String
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  withdrawals   WithdrawalRequest[]
+}
+
+model WithdrawalRequest {
+  id            String           @id @default(cuid())
+  userId        String
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bankAccountId String
+  bankAccount   BankAccount      @relation(fields: [bankAccountId], references: [id])
+  btcAmount     Decimal
+  status        WithdrawalStatus @default(PENDING)
+  clientNote    String?
+  adminNote     String?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+}
+
+model BalanceAuditLog {
+  id           String   @id @default(cuid())
+  clientUserId String
+  adminId      String?
+  admin        User?    @relation("AdminAudit", fields: [adminId], references: [id], onDelete: SetNull)
+  previousBtc  Decimal
+  newBtc       Decimal
+  note         String?
+  createdAt    DateTime @default(now())
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  message   String?
+  locale    String   @default("de")
+  ip        String?
+  createdAt DateTime @default(now())
+}
+
+model LeadSubmission {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  locale    String   @default("de")
+  country   String?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}

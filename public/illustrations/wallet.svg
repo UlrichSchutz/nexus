@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="walletGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="#f9fafb"/>
+  
+  <!-- Digital wallet -->
+  <g id="wallet">
+    <!-- Wallet card back -->
+    <rect x="100" y="150" width="200" height="140" rx="15" fill="#e5e7eb" opacity="0.5"/>
+    
+    <!-- Wallet card front -->
+    <rect x="90" y="110" width="200" height="140" rx="15" fill="url(#walletGrad)" opacity="0.95"/>
+    
+    <!-- Card shine -->
+    <rect x="90" y="110" width="200" height="140" rx="15" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+    
+    <!-- Chip -->
+    <g id="chip">
+      <rect x="110" y="135" width="35" height="35" rx="3" fill="#fbbf24" opacity="0.8"/>
+      <rect x="115" y="140" width="6" height="6" fill="#f59e0b"/>
+      <rect x="125" y="140" width="6" height="6" fill="#f59e0b"/>
+      <rect x="135" y="140" width="6" height="6" fill="#f59e0b"/>
+      <rect x="115" y="150" width="6" height="6" fill="#f59e0b"/>
+      <rect x="125" y="150" width="6" height="6" fill="#f59e0b"/>
+      <rect x="135" y="150" width="6" height="6" fill="#f59e0b"/>
+    </g>
+    
+    <!-- Card text/pattern -->
+    <text x="160" y="180" font-size="24" font-weight="bold" fill="#ffffff" opacity="0.7">●●●●</text>
+    <text x="160" y="210" font-size="14" fill="#ffffff" opacity="0.6">SECURE PAYMENT</text>
+    
+    <!-- Money symbols -->
+    <circle cx="280" cy="160" r="20" fill="#a855f7" opacity="0.7"/>
+    <text x="280" y="170" text-anchor="middle" font-size="28" fill="#ffffff">€</text>
+    
+    <!-- Additional cards -->
+    <rect x="85" y="175" width="200" height="140" rx="15" fill="#3b82f6" opacity="0.4" transform="rotate(-5 185 245)"/>
+    <rect x="95" y="140" width="200" height="140" rx="15" fill="#06b6d4" opacity="0.3" transform="rotate(5 195 210)"/>
+  </g>
+</svg>

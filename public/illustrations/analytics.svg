@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="chartGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="#f9fafb"/>
+  
+  <!-- Chart/Analytics visualization -->
+  <g id="analytics">
+    <!-- Grid background -->
+    <line x1="60" y1="320" x2="340" y2="320" stroke="#e5e7eb" stroke-width="2"/>
+    <line x1="60" y1="80" x2="60" y2="320" stroke="#e5e7eb" stroke-width="2"/>
+    
+    <!-- Grid lines -->
+    <line x1="60" y1="260" x2="340" y2="260" stroke="#e5e7eb" stroke-width="1" opacity="0.5"/>
+    <line x1="60" y1="200" x2="340" y2="200" stroke="#e5e7eb" stroke-width="1" opacity="0.5"/>
+    <line x1="60" y1="140" x2="340" y2="140" stroke="#e5e7eb" stroke-width="1" opacity="0.5"/>
+    
+    <!-- Bar chart -->
+    <rect x="90" y="220" width="35" height="100" rx="4" fill="url(#chartGrad)" opacity="0.8"/>
+    <rect x="155" y="160" width="35" height="160" rx="4" fill="url(#chartGrad)" opacity="0.9"/>
+    <rect x="220" y="100" width="35" height="220" rx="4" fill="url(#chartGrad)" opacity="1"/>
+    <rect x="285" y="140" width="35" height="180" rx="4" fill="url(#chartGrad)" opacity="0.85"/>
+    
+    <!-- Data points on line -->
+    <circle cx="107.5" cy="220" r="5" fill="#06b6d4"/>
+    <circle cx="172.5" cy="160" r="5" fill="#06b6d4"/>
+    <circle cx="237.5" cy="100" r="5" fill="#06b6d4"/>
+    <circle cx="302.5" cy="140" r="5" fill="#06b6d4"/>
+    
+    <!-- Connecting line -->
+    <polyline points="107.5,220 172.5,160 237.5,100 302.5,140" 
+              fill="none" stroke="#06b6d4" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Labels on axis -->
+    <text x="107.5" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Q1</text>
+    <text x="172.5" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Q2</text>
+    <text x="237.5" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Q3</text>
+    <text x="302.5" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Q4</text>
+  </g>
+</svg>

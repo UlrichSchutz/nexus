@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist-sans",
+  display: "swap",
 });
 
-const dmSerif = DM_Serif_Display({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-dm-serif",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -18,12 +20,20 @@ export const metadata: Metadata = {
   description:
     "Blockchain forensics, crypto recovery assistance and wealth management from Bern, Switzerland.",
   icons: { icon: "/favicon.svg" },
+  viewport: "width=device-width, initial-scale=1.0",
+  themeColor: "#1e3a8a",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className="scroll-smooth">
-      <body className={`${inter.variable} ${dmSerif.variable} font-sans`}>{children}</body>
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="color-scheme" content="light" />
+      </head>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
+        {children}
+      </body>
     </html>
   );
 }

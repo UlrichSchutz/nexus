@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Geist:wght@400;500;600&display=swap");
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -13,72 +15,110 @@
 
   h1,
   h2,
-  h3 {
-    @apply font-serif text-brand-ink;
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-bold text-brand-ink;
+  }
+
+  /* Modern typography */
+  body {
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
+  /* Glass morphism panels */
   .glass-panel {
-    @apply rounded-2xl border border-brand-border bg-brand-surface shadow-card;
+    @apply rounded-2xl border border-brand-border/40 bg-white/80 shadow-card backdrop-blur-md transition-all duration-300 hover:shadow-lift hover:border-brand-border/60;
   }
 
+  /* Gradient text effect */
   .gradient-text {
-    @apply bg-gradient-to-r from-brand-teal to-brand-tealDark bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-brand-primary via-brand-accent to-brand-cta bg-clip-text text-transparent;
   }
 
+  /* Modern input styling */
   .tech-input {
-    @apply w-full rounded-lg border border-brand-border bg-white px-4 py-3.5 text-sm text-brand-ink placeholder:text-brand-light transition focus:border-brand-teal focus:outline-none focus:ring-2 focus:ring-brand-teal/20;
+    @apply w-full rounded-xl border-2 border-brand-border bg-white/50 px-4 py-3 text-sm font-medium text-brand-ink placeholder:text-brand-light transition-all duration-200 focus:border-brand-accent focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-accent/20;
   }
 
+  /* Primary CTA button with modern styling */
   .btn-cyber {
-    @apply inline-flex items-center justify-center rounded-lg bg-brand-teal px-6 py-3 font-sans text-sm font-semibold text-white shadow-soft transition hover:bg-brand-tealDark hover:shadow-lift focus:outline-none focus:ring-2 focus:ring-brand-teal/40;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-cta to-brand-accent px-6 py-3 font-sans text-sm font-semibold text-white shadow-soft transition-all duration-300 hover:shadow-glow hover:scale-105 disabled:scale-100 disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-brand-accent/50;
   }
 
+  /* Outline button */
   .btn-outline {
-    @apply rounded-lg border-2 border-brand-teal bg-transparent px-6 py-3 font-sans text-sm font-semibold text-brand-teal transition hover:bg-brand-tealLight;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border-2 border-brand-accent bg-transparent px-6 py-3 font-sans text-sm font-semibold text-brand-accent transition-all duration-300 hover:bg-brand-accentLight/10 hover:border-brand-accentDark focus:outline-none focus:ring-2 focus:ring-brand-accent/30;
   }
 
+  /* Hero background with modern gradient */
   .hero-bg {
-    background: linear-gradient(165deg, #f0fdfa 0%, #ecfdf5 40%, #f8fafc 100%);
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 40%, #ecfdf5 100%);
+    position: relative;
   }
 
+  .hero-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  /* Footer styling */
   .footer-bg {
-    @apply bg-brand-tealDark text-white;
+    @apply bg-gradient-to-r from-brand-primary to-brand-primaryDark text-white;
   }
 
+  /* Section alternation */
   .section-alt {
-    @apply border-y border-brand-border bg-white;
+    @apply border-y border-brand-border/40 bg-brand-canvasAlt;
   }
 
+  /* Trust/badge styling */
   .trust-badge {
-    @apply inline-flex items-center gap-2 rounded-full border border-brand-teal/25 bg-brand-tealLight px-4 py-1.5 font-sans text-xs font-semibold uppercase tracking-wide text-brand-tealDark;
+    @apply inline-flex items-center gap-2 rounded-full border-2 border-brand-accent/30 bg-brand-accentLight/10 px-4 py-2 font-sans text-xs font-bold uppercase tracking-widest text-brand-accent;
   }
 
+  /* Page structure */
   .page-shell {
-    @apply bg-brand-canvas py-16 md:py-20;
+    @apply bg-brand-canvas py-16 md:py-24;
   }
 
   .page-hero {
-    @apply mx-auto mb-12 max-w-3xl text-center;
+    @apply mx-auto mb-16 max-w-3xl text-center;
   }
 
   .page-title {
-    @apply font-serif text-4xl font-bold text-brand-ink md:text-5xl;
+    @apply font-display text-4xl font-bold text-brand-ink md:text-5xl lg:text-6xl;
   }
 
   .page-subtitle {
-    @apply mt-4 text-lg leading-relaxed text-brand-muted;
+    @apply mt-6 text-lg leading-relaxed text-brand-muted;
   }
 
+  /* Prose sections */
   .prose-section {
-    @apply glass-panel space-y-4 p-8 text-brand-muted leading-relaxed md:p-10;
+    @apply glass-panel space-y-6 p-8 text-brand-muted leading-relaxed md:p-10;
   }
 
   .prose-section h2 {
-    @apply font-serif text-xl font-bold text-brand-teal;
+    @apply font-display text-2xl font-bold text-brand-primary;
   }
 
+  .prose-section h3 {
+    @apply font-display text-xl font-bold text-brand-primary;
+  }
+
+  /* Animated ticker */
   .ticker-scroll {
     animation: ticker 45s linear infinite;
   }
@@ -90,5 +130,31 @@
     100% {
       transform: translateX(-50%);
     }
+  }
+
+  /* Loading spinner animation */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Smooth transitions */
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  /* Focus visible for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-brand-accent/50 ring-offset-2;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-brand-accent/20 text-brand-ink;
   }
 }
